@@ -1,12 +1,6 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-
-export const metadata: Metadata = {
-  title: "Memply",
-  description:
-    "Memply is a creative playground to create memes, stickers, and internet fun.",
-};
+import Footer from "./components/Footer";
 
 export default function RootLayout({
   children,
@@ -15,11 +9,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white text-gray-900">
+      <body className="antialiased">
         <Navbar />
-        <main className="mx-auto max-w-6xl px-4 py-6">
+        <main className="pt-10">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
