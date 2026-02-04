@@ -1,6 +1,5 @@
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import ClientLayout from "./client-layout";
 
 export default function RootLayout({
   children,
@@ -9,12 +8,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <Navbar />
-        <main className="pt-10">
+      <body>
+        <ClientLayout>
           {children}
-        </main>
-        <Footer />
+        </ClientLayout>
       </body>
     </html>
   );

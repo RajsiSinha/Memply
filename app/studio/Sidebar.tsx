@@ -15,95 +15,138 @@ type SidebarProps = {
   onAddText: (position: "top" | "bottom") => void;
 };
 
-
-export default function Sidebar({ onTemplateSelect, onAddText, }: SidebarProps) {
+export default function Sidebar({
+  onTemplateSelect,
+  onAddText,
+}: SidebarProps) {
   const [activeTab, setActiveTab] = useState<
     "templates" | "uploads" | "text" | "stickers"
   >("templates");
 
   return (
-    <aside className="w-64 border-r bg-white p-4 flex flex-col">
-      
-      {/* Tabs */}
-      <div className="space-y-1 mb-6">
-        <SidebarButton
-          label="🖼 Templates"
-          active={activeTab === "templates"}
-          onClick={() => setActiveTab("templates")}
-        />
-        <SidebarButton
-          label="⬆ Uploads"
-          active={activeTab === "uploads"}
-          onClick={() => setActiveTab("uploads")}
-        />
-        <SidebarButton
-          label="✍ Text"
-          active={activeTab === "text"}
-          onClick={() => setActiveTab("text")}
-        />
-        <SidebarButton
-          label="😄 Stickers"
-          active={activeTab === "stickers"}
-          onClick={() => setActiveTab("stickers")}
-        />
+    <aside className="flex h-full border-r bg-white">
+
+      {/* ICON RAIL */}
+      <div className="w-16 flex flex-col items-center py-4 gap-6 border-r">
+        <IconButton
+  label="Layouts"
+  active={activeTab === "templates"}
+  onClick={() => setActiveTab("templates")}
+>
+  🟦
+</IconButton>
+
+<IconButton
+  label="Uploads"
+  active={activeTab === "uploads"}
+  onClick={() => setActiveTab("uploads")}
+>
+  ⬆
+</IconButton>
+
+<IconButton
+  label="Text"
+  active={activeTab === "text"}
+  onClick={() => setActiveTab("text")}
+>
+  Tt
+</IconButton>
+
+<IconButton
+  label="Stickers"
+  active={activeTab === "stickers"}
+  onClick={() => setActiveTab("stickers")}
+>
+  😄
+</IconButton>
+
+<div className="mt-auto">
+  <IconButton
+    label="Settings"
+    active={false}
+    onClick={() => {}}
+  >
+    ⚙
+  </IconButton>
+</div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto">
+      {/* CONTENT PANEL */}
+      <div className="w-72 p-4 overflow-y-auto">
         {activeTab === "templates" && (
           <>
-            <h2 className="text-sm font-semibold text-gray-500 mb-3">
-              Trending Templates
-            </h2>
+            {/* HEADER */}
+            <div className="flex gap-4 mb-4 text-sm">
+              <button className="font-medium text-sky-600 border-b-2 border-sky-500 pb-1">
+                Templates
+              </button>
+              <button className="text-gray-400">My Library</button>
+            </div>
 
-            <ul className="space-y-2">
+            {/* SEARCH */}
+            <input
+              placeholder="Search templates..."
+              className="w-full mb-5 px-4 py-2 text-sm bg-gray-100 rounded-full outline-none focus:ring-2 focus:ring-sky-400"
+            />
+
+            {/* TEMPLATE GRID (NO IMAGE CHANGE) */}
+            <div className="grid grid-cols-2 gap-4">
               {templates.map((template) => (
-                <li
+                <button
                   key={template}
                   onClick={() => onTemplateSelect(template)}
-                  className="px-3 py-2 rounded-lg border text-sm cursor-pointer hover:bg-gray-50"
+                  className="flex flex-col items-center gap-2 group"
                 >
-                  {template}
-                </li>
+                  {/* Placeholder circle — image stays YOUR responsibility */}
+                  <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center text-xs text-gray-400 group-hover:bg-gray-200 transition">
+                    Preview
+                  </div>
+
+                  <span className="text-xs text-center text-gray-600 truncate w-full">
+                    {template}
+                  </span>
+                </button>
               ))}
-            </ul>
+            </div>
           </>
         )}
 
+        {/* TEXT TAB */}
         {activeTab === "text" && (
-  <div className="space-y-3">
-    <button
-      onClick={() => onAddText("top")}
-      className="w-full px-3 py-2 rounded-lg border text-sm hover:bg-gray-50"
-    >
-      ➕ Add Top Text
-    </button>
+          <div className="space-y-3">
+            <button
+              onClick={() => onAddText("top")}
+              className="w-full px-3 py-2 rounded-lg border text-sm hover:bg-gray-50"
+            >
+              ➕ Add Top Text
+            </button>
+            <button
+              onClick={() => onAddText("bottom")}
+              className="w-full px-3 py-2 rounded-lg border text-sm hover:bg-gray-50"
+            >
+              ➕ Add Bottom Text
+            </button>
+          </div>
+        )}
 
-    <button
-      onClick={() => onAddText("bottom")}
-      className="w-full px-3 py-2 rounded-lg border text-sm hover:bg-gray-50"
-    >
-      ➕ Add Bottom Text
-    </button>
-  </div>
-)}
-
-{activeTab !== "templates" && activeTab !== "text" && (
-  <p className="text-sm text-gray-400">
-    This section will be available soon.
-  </p>
-)}
-
+        {activeTab !== "templates" && activeTab !== "text" && (
+          <p className="text-sm text-gray-400">
+            This section will be available soon.
+          </p>
+        )}
       </div>
     </aside>
   );
 }
 
-function SidebarButton({
+/* ICON BUTTON */
+function IconButton({
+  children,
   label,
   active,
   onClick,
 }: {
+  children: React.ReactNode;
   label: string;
   active: boolean;
   onClick: () => void;
@@ -111,14 +154,30 @@ function SidebarButton({
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition
-        ${
-          active
-            ? "bg-sky-100 text-sky-700 font-medium"
-            : "hover:bg-gray-100"
-        }`}
+      className="flex flex-col items-center gap-1 group"
     >
-      {label}
+      <div
+        className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm transition
+          ${
+            active
+              ? "bg-sky-100 text-sky-600"
+              : "text-gray-400 group-hover:bg-gray-100"
+          }`}
+      >
+        {children}
+      </div>
+
+      <span
+        className={`text-[10px] leading-none
+          ${
+            active
+              ? "text-sky-600 font-medium"
+              : "text-gray-400"
+          }`}
+      >
+        {label}
+      </span>
     </button>
   );
 }
+
