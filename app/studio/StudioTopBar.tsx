@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Pencil, Download, User } from "lucide-react";
 
 export default function StudioTopBar() {
   const [title, setTitle] = useState("Untitled Meme #1");
@@ -15,22 +16,20 @@ export default function StudioTopBar() {
   };
 
   return (
-    <header className="h-14 px-4 flex items-center justify-between border-b bg-white">
-      
+    <header className="h-14 px-4 flex items-center justify-between bg-white">
       {/* LEFT */}
       <div className="flex items-center gap-4">
-
-        {/* LOGO + NAME */}
+        {/* LOGO */}
         <div className="flex items-center gap-2">
           <Image
-            src="/logo.png"   
+            src="/logo.png"
             alt="Memply Logo"
-            width={36}
-            height={36}
+            width={28}
+            height={28}
             priority
           />
           <span className="font-semibold text-sky-600">
-              Memply Studio
+            Memply Studio
           </span>
         </div>
 
@@ -43,9 +42,7 @@ export default function StudioTopBar() {
               onChange={(e) => setTitle(e.target.value)}
               onBlur={handleBlur}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleBlur();
-                }
+                if (e.key === "Enter") handleBlur();
               }}
               className="text-sm px-2 py-0.5 border rounded focus:outline-none focus:ring-1 focus:ring-sky-400"
             />
@@ -62,33 +59,19 @@ export default function StudioTopBar() {
                 className="text-gray-400 hover:text-gray-600"
                 title="Rename"
               >
-                ✏️
+                <Pencil size={16} />
               </button>
             </>
           )}
         </div>
       </div>
 
-      {/* CENTER */}
+      {/* CENTER MENUS */}
       <div className="hidden md:flex items-center gap-6 text-sm text-gray-500">
-        <div className="flex gap-4">
-          <button>File</button>
-          <button>Edit</button>
-          <button>View</button>
-          <button>History</button>
-        </div>
-
-        <div className="flex items-center gap-3 text-gray-600">
-          <button title="Move">✥</button>
-          <button title="Zoom">🔍</button>
-          <button title="Undo">↶</button>
-          <button title="Redo">↷</button>
-          <button title="Layers">▦</button>
-        </div>
-
-        <div className="text-xs bg-gray-100 px-2 py-1 rounded">
-          100%
-        </div>
+        <button>File</button>
+        <button className="font-medium text-gray-700">Edit</button>
+        <button>View</button>
+        <button>History</button>
       </div>
 
       {/* RIGHT */}
@@ -97,12 +80,13 @@ export default function StudioTopBar() {
           Share
         </button>
 
-        <button className="text-sm px-4 py-1.5 rounded-md bg-sky-500 text-white hover:bg-sky-600">
-          ⬇ Export Meme
+        <button className="flex items-center gap-2 text-sm px-4 py-1.5 rounded-md bg-sky-500 text-white hover:bg-sky-600">
+          <Download size={16} />
+          Export Meme
         </button>
 
-        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm">
-          👤
+        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+          <User size={16} className="text-gray-600" />
         </div>
       </div>
     </header>

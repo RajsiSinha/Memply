@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextLayer } from "./types";
 
 type CanvasAreaProps = {
@@ -31,88 +31,113 @@ export default function CanvasArea({
   onSelectText,
   onMoveText,
 }: CanvasAreaProps) {
-  
   const [draggingId, setDraggingId] = useState<number | null>(null);
 
-  // 🔥 GLOBAL mouse move (THIS FIXES IT)
+  /* GLOBAL DRAG */
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (draggingId === null || !canvasRef.current) return;
 
       const rect = canvasRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      onMoveText(draggingId, x, y);
+      onMoveText(
+        draggingId,
+        e.clientX - rect.left,
+        e.clientY - rect.top
+      );
     };
 
-    const handleMouseUp = () => {
-      setDraggingId(null);
-    };
+    const stopDrag = () => setDraggingId(null);
 
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseup", stopDrag);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseup", stopDrag);
     };
-  }, [draggingId, onMoveText]);
-
-  const handleMouseDown = (e: React.MouseEvent, id: number) => {
-    e.preventDefault();
-    onSelectText(id);
-    setDraggingId(id);
-  };
+  }, [draggingId, onMoveText, canvasRef]);
 
   const imageSrc = selectedTemplate
     ? templateImageMap[selectedTemplate]
     : null;
 
   return (
-    <div className="flex-1 flex items-center justify-center bg-gray-50">
+    <div className="flex-1 flex items-center justify-center bg-[#f7f9fb]">
+      {/* CANVAS */}
       <div
         ref={canvasRef}
-        className="relative w-[500px] h-[500px] bg-white rounded-xl shadow overflow-hidden"
+        className="
+          relative
+          bg-white
+          rounded-2xl
+          shadow-[0_4px_16px_rgba(0,0,0,0.12)]
+          overflow-hidden
+        "
+        style={{
+          width: 600,
+          height: 600,
+          maxWidth: "90%",
+          maxHeight: "90%",
+        }}
       >
-        {/* Image */}
+        {/* TEMPLATE IMAGE */}
         {imageSrc ? (
-          <Image src={imageSrc} alt="Meme" fill className="object-cover" />
+          <Image
+            src={imageSrc}
+            alt="Meme"
+            fill
+            className="object-cover"
+            priority
+          />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-400 text-sm">
             Select a template
           </div>
         )}
 
-        {/* Text Layers */}
+        {/* TEXT LAYERS */}
         {textLayers.map((layer) => (
           <input
-  key={layer.id}
-  value={layer.content}
-  readOnly={selectedTextId !== layer.id}
-  onMouseDown={(e) => {
-    if (selectedTextId !== layer.id) {
-      e.preventDefault(); // allow drag
-      handleMouseDown(e, layer.id);
-    }
-  }}
-  onDoubleClick={() => onSelectText(layer.id)}
-  onChange={(e) => onTextChange(layer.id, e.target.value)}
-  style={{
-    transform: `translate(${layer.x}px, ${layer.y}px)`,
-    color: layer.color,
-    fontSize: layer.fontSize,
-    fontWeight: layer.bold ? "800" : "400",
-  }}
-  className={`absolute left-0 top-0 bg-transparent outline-none text-center drop-shadow-md cursor-move select-none
-    ${
-      selectedTextId === layer.id
-        ? "ring-2 ring-sky-400 cursor-text"
-        : ""
-    }
-  `}
-/>
-
+            key={layer.id}
+            value={layer.content}
+            readOnly={selectedTextId !== layer.id}
+            onMouseDown={(e) => {
+              if (selectedTextId !== layer.id) {
+                e.preventDefault();
+                onSelectText(layer.id);
+                setDraggingId(layer.id);
+              }
+            }}
+            onDoubleClick={() => onSelectText(layer.id)}
+            onChange={(e) =>
+              onTextChange(layer.id, e.target.value)
+            }
+            style={{
+              transform: `translate(${layer.x}px, ${layer.y}px)`,
+              color: layer.color,
+              fontSize: layer.fontSize,
+              fontWeight: layer.bold ? 800 : 400,
+              textAlign: layer.align,
+              letterSpacing: `${layer.letterSpacing}px`,
+              opacity: layer.opacity,
+              WebkitTextStroke:
+                layer.strokeWidth > 0
+                  ? `${layer.strokeWidth}px ${layer.strokeColor}`
+                  : "none",
+            }}
+            className={`
+              absolute left-0 top-0
+              bg-transparent
+              outline-none
+              drop-shadow-md
+              select-none
+              ${
+                selectedTextId === layer.id
+                  ? "ring-2 ring-sky-400 cursor-text"
+                  : "cursor-move"
+              }
+            `}
+          />
         ))}
       </div>
     </div>
