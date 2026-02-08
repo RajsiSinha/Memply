@@ -9,6 +9,8 @@ import {
   Settings,
 } from "lucide-react";
 
+/* ---------------- DATA ---------------- */
+
 const templates = [
   "Drake Hotline Bling",
   "Distracted Boyfriend",
@@ -17,17 +19,70 @@ const templates = [
   "Relatable Work Meme",
 ];
 
+const TEXT_PRESETS = [
+  {
+    id: "meme",
+    label: "Meme Bold",
+    style: {
+      fontSize: 42,
+      bold: true,
+      color: "#ffffff",
+      strokeWidth: 2,
+      strokeColor: "#000000",
+      align: "center",
+    },
+  },
+  {
+    id: "impact",
+    label: "Classic Impact",
+    style: {
+      fontSize: 38,
+      bold: true,
+      color: "#ffffff",
+      strokeWidth: 3,
+      strokeColor: "#000000",
+      align: "center",
+    },
+  },
+  {
+    id: "subtitle",
+    label: "Subtitle",
+    style: {
+      fontSize: 22,
+      bold: false,
+      color: "#ffffff",
+      strokeWidth: 0,
+      align: "center",
+    },
+  },
+  {
+    id: "caption",
+    label: "Small Caption",
+    style: {
+      fontSize: 16,
+      bold: false,
+      color: "#ffffff",
+      strokeWidth: 0,
+      align: "left",
+    },
+  },
+];
+
+/* ---------------- TYPES ---------------- */
+
 type SidebarProps = {
   onTemplateSelect: (template: string) => void;
   onAddText: (position: "top" | "bottom") => void;
+  onAddPresetText: (preset: any) => void;
 };
+
+/* ---------------- COMPONENT ---------------- */
 
 export default function Sidebar({
   onTemplateSelect,
   onAddText,
+  onAddPresetText,
 }: SidebarProps) {
-  console.log("🔥 STUDIO SIDEBAR RENDERED");
-
   const [activeTab, setActiveTab] = useState<
     "templates" | "uploads" | "text" | "stickers"
   >("templates");
@@ -73,21 +128,17 @@ export default function Sidebar({
         </IconButton>
 
         <div className="mt-auto">
-          <IconButton
-            label="Settings"
-            active={false}
-            onClick={() => {}}
-          >
+          <IconButton label="Settings" active={false} onClick={() => {}}>
             <Settings size={20} />
           </IconButton>
         </div>
       </div>
 
       {/* CONTENT PANEL */}
-      <div className="w-72 flex flex-col h-full">
-        {/* TEMPLATES PANEL */}
+      <div className="w-72 flex flex-col h-full min-h-0">
+        {/* ---------------- TEMPLATES ---------------- */}
         {activeTab === "templates" && (
-          <div className="flex flex-col h-full px-4 pt-3">
+          <div className="flex flex-col h-full min-h-0 px-4 pt-3">
             {/* TABS */}
             <div className="flex gap-6 text-sm mb-3">
               <button
@@ -142,24 +193,39 @@ export default function Sidebar({
           </div>
         )}
 
-        {/* TEXT TAB */}
+        {/* ---------------- TEXT ---------------- */}
         {activeTab === "text" && (
-          <div className="p-4 space-y-3">
+          <div className="p-4 flex flex-col gap-4">
             <button
               onClick={() => onAddText("top")}
-              className="w-full px-3 py-2 rounded-lg bg-gray-100 text-sm hover:bg-gray-200"
+              className="w-full px-3 py-2 rounded-lg bg-gray-100 text-sm hover:bg-gray-200 transition"
             >
-              Add Top Text
+              ➕ Add Text
             </button>
-            <button
-              onClick={() => onAddText("bottom")}
-              className="w-full px-3 py-2 rounded-lg bg-gray-100 text-sm hover:bg-gray-200"
-            >
-              Add Bottom Text
-            </button>
+
+            <Divider />
+
+            <div className="space-y-2">
+              <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                Text Presets
+              </h4>
+
+              <div className="grid grid-cols-2 gap-2">
+                {TEXT_PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => onAddPresetText(preset)}
+                    className="px-3 py-2 rounded-lg bg-white border text-sm text-gray-700 hover:bg-gray-50 transition"
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
+        {/* ---------------- OTHERS ---------------- */}
         {activeTab !== "templates" && activeTab !== "text" && (
           <p className="p-4 text-sm text-gray-400">
             This section will be available soon.
@@ -170,7 +236,8 @@ export default function Sidebar({
   );
 }
 
-/* ICON BUTTON */
+/* ---------------- SMALL COMPONENTS ---------------- */
+
 function IconButton({
   children,
   label,
@@ -183,17 +250,13 @@ function IconButton({
   onClick: () => void;
 }) {
   return (
-    <button
-      onClick={onClick}
-      className="flex flex-col items-center gap-1 group"
-    >
+    <button onClick={onClick} className="flex flex-col items-center gap-1 group">
       <div
-        className={`w-10 h-10 rounded-lg flex items-center justify-center transition
-          ${
-            active
-              ? "bg-sky-100 text-sky-600"
-              : "text-gray-400 group-hover:text-sky-500 group-hover:bg-gray-100"
-          }`}
+        className={`w-10 h-10 rounded-lg flex items-center justify-center transition ${
+          active
+            ? "bg-sky-100 text-sky-600"
+            : "text-gray-400 group-hover:text-sky-500 group-hover:bg-gray-100"
+        }`}
       >
         {children}
       </div>
@@ -207,4 +270,8 @@ function IconButton({
       </span>
     </button>
   );
+}
+
+function Divider() {
+  return <div className="h-px bg-gray-200/60 my-3" />;
 }
