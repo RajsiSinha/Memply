@@ -36,7 +36,7 @@ export default function Navbar() {
           <Link href="/quiz" className="hover:text-gray-900 transition">
             Quiz
           </Link>
-          <Link href="/shoutout" className="hover:text-gray-900 transition">
+          <Link href="/shoutouts" className="hover:text-gray-900 transition">
             Shout-outs
           </Link>
         </div>
