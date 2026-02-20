@@ -10,13 +10,16 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isStudio = pathname.startsWith("/studio");
+
+  const hideMainLayout =
+    pathname.startsWith("/studio") ||
+    pathname.startsWith("/quiz");
 
   return (
     <>
-      {!isStudio && <Navbar />}
+      {!hideMainLayout && <Navbar />}
       {children}
-      {!isStudio && <Footer />}
+      {!hideMainLayout && <Footer />}
     </>
   );
 }
