@@ -13,7 +13,9 @@ export default function ClientLayout({
 
   const hideMainLayout =
     pathname.startsWith("/studio") ||
-    pathname.startsWith("/quiz");
+    pathname.startsWith("/quiz") ||
+    pathname.startsWith("/escape") ||
+    pathname.startsWith("/shoutouts");
 
   return (
     <>

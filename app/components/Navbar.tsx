@@ -5,40 +5,46 @@ import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 bg-white/60 backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-white/60 backdrop-blur-md border-b border-black/5">
       <nav className="max-w-7xl mx-auto h-16 px-6 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 h-full">
-        <div className="flex items-center justify-center h-full">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.png"
             alt="Memply logo"
             width={36}
             height={36}
             priority
-            className="relative top: 1px]"
           />
-          </div>
-          <span className="text-lg font-bold tracking-tight leading-[1] text-gray-900">
+          <span className="text-lg font-bold tracking-tight text-gray-900">
             Memply
           </span>
         </Link>
 
         {/* Nav links */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+
           <Link href="/" className="hover:text-gray-900 transition">
             Home
           </Link>
+
+          <Link href="/escape" className="hover:text-gray-900 transition">
+            Escape
+          </Link>
+
           <Link href="/studio" className="hover:text-gray-900 transition">
             Studio
           </Link>
+
           <Link href="/quiz" className="hover:text-gray-900 transition">
             Quiz
           </Link>
+
           <Link href="/shoutouts" className="hover:text-gray-900 transition">
             Shout-outs
           </Link>
+
         </div>
 
         {/* CTA */}

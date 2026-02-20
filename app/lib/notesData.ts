@@ -14,7 +14,7 @@ export const notes = [
     text: `DRINK SOME WATER RIGHT NOW.
 YOUR BRAIN IS 75% WATER.`,
     color: "bg-cyan-400",
-    rotate: 1,
+    rotate: 1.5,
     reactions: [
       { icon: "💧", count: "8.1k" }
     ]
