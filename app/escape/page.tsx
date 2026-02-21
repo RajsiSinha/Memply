@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
+
 export default function EscapePage() {
   return (
     <div className="min-h-screen flex flex-col escape-bg text-white relative overflow-hidden">
@@ -45,93 +46,150 @@ export default function EscapePage() {
         <div className="w-9 h-9 rounded-full bg-yellow-300" />
       </header>
 
-      {/* HERO */}
-      <main className="relative flex-1 flex flex-col items-center justify-center text-center px-6">
+     {/* HERO */}
+<main className="relative flex-1 flex flex-col items-center justify-center text-center px-0 pt-0 md:pt-0">
 
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+  {/* MEME BACKGROUND TEXT */}
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+    <span className="
+      text-[220px] md:text-[300px]
+      font-extrabold tracking-widest
+      text-white/5
+    ">
+      MEME
+    </span>
+  </div>
 
-  <span className="
-    text-[180px] md:text-[260px] font-extrabold
-    text-white/5 tracking-widest
-    blur-[1px]
-  ">
-    MEME
-  </span>
+
+  {/* Orb */}
+<div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+
+  <div className="relative">
+
+    {/* Glow */}
+    <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-cyan-400 to-purple-500 opacity-25 scale-150" />
+
+    {/* Orb */}
+    <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center shadow-[0_0_80px_rgba(0,255,255,0.4)] animate-float-orb">
+
+      {/* Dotted texture */}
+      <div className="absolute inset-0 rounded-full opacity-20 bg-[radial-gradient(circle,_rgba(255,255,255,0.3)_1px,_transparent_1px)] bg-[length:8px_8px]" />
+
+      {/* White Sparkle Icon */}
+  <div className="relative w-12 h-12">
+    <svg
+      viewBox="0 0 24 24"
+      fill="white"
+      className="w-full h-full drop-shadow-[0_0_12px_rgba(255,255,255,0.7)]"
+    >
+      <path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z" />
+    </svg>
+  </div>
+
+    </div>
+
+  </div>
 
 </div>
 
-        {/* Orb */}
-        <div className="relative z-10 mb-12">
 
-          <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-cyan-400 to-purple-500 opacity-40 scale-150" />
+  {/* CONTENT */}
+  <div className="relative z-20 flex flex-col items-center mt-150 md:mt-150">
 
-          <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center shadow-[0_0_80px_rgba(0,255,255,0.4)] animate-float-orb">
-            <div className="text-5xl">✨</div>
-          </div>
+  {/* Heading */}
+  <h1 className="text-5xl md:text-6xl font-bold mb-4">
+    Escape the Void.
+  </h1>
 
-        </div>
+  {/* Subtitle */}
+  <p className="text-white/60 max-w-xl">
+    Curing boredom, one high-quality meme at a time.
+  </p>
 
-        <h1 className="text-5xl md:text-6xl font-bold mb-4">
-          Escape the Void.
-        </h1>
+  {/* Button overlapping subtitle */}
+  <button
+    className="
+    mt-1
+    px-8 py-3
+    rounded-full
+    bg-white/10
+    border border-white/20
+    text-cyan-200 font-semibold
+    backdrop-blur-2xl
+    hover:bg-white/20
+    transition
+    animate-glow
+    shadow-[0_0_30px_rgba(34,211,238,0.25)]
+    "
+  >
+    I’M BORED →
+  </button>
 
-        <p className="text-white/60 max-w-xl mb-8">
-          Curing boredom, one high-quality meme at a time.
-        </p>
-
-        <button className="px-8 py-3 rounded-full bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-semibold backdrop-blur hover:bg-cyan-500/30 transition animate-glow">
-          I’M BORED →
-        </button>
-
-        <div className="flex items-center gap-2 mt-8 text-sm text-white/50">
-          <div className="flex -space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gray-400 border border-black" />
-            <div className="w-8 h-8 rounded-full bg-gray-500 border border-black" />
-            <div className="w-8 h-8 rounded-full bg-gray-600 border border-black" />
-          </div>
-          <span>+12k escaping the void now</span>
-        </div>
-
-      </main>
-
-      {/* FOOTER HUD */}
-      <footer className="backdrop-blur-md bg-black/10 border-t border-white/10">
-
-        <div className="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between text-xs text-white/40">
-
-          {/* LEFT */}
-          <div className="flex items-center gap-6">
-            <span>V2.4.0 EXPERIMENTAL</span>
-            <span className="w-16 h-px bg-white/20" />
-            <span>PORTAL STATUS: OPTIMIZED</span>
-          </div>
-
-          {/* CENTER */}
-          <div className="hidden md:flex flex-col items-center gap-2 text-white/30">
-            <span className="tracking-widest">ESCAPING THE VOID NOW</span>
-            <div className="w-px h-6 bg-white/20 scroll-indicator" />
-            <span className="tracking-widest text-[10px]">
-              SCROLL TO DIVE
-            </span>
-          </div>
-
-          {/* RIGHT */}
-          <div className="flex items-center gap-3">
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition">
-              🔗
-            </button>
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition">
-              🔊
-            </button>
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition">
-              ⛶
-            </button>
-          </div>
-
-        </div>
-
-      </footer>
-
+    <div className="flex flex-col items-center justify-center mt-6 mb-6 text-sm text-white/50">
+      <div className="flex items-center gap-2">
+        <div className="flex -space-x-2">
+        <div className="w-8 h-8 rounded-full bg-gray-400 border border-black" />
+        <div className="w-8 h-8 rounded-full bg-gray-500 border border-black" />
+        <div className="w-8 h-8 rounded-full bg-gray-600 border border-black" />
+      </div>
+      <span>+12k </span>
     </div>
+  
+  {/* ESCAPING THE VOID NOW */}
+  <div className="flex flex-col items-center mt-4 text-white/30">
+    <span className="tracking-widest text-xs">
+      ESCAPING THE VOID NOW
+    </span>
+
+    <div className="w-px h-6 bg-white/20 mt-2" />
+
+    <span className="tracking-widest text-[10px] mt-1">
+      SCROLL TO DIVE
+    </span>
+  </div>
+
+</div>
+
+</div>
+</main>
+
+       {/* BOTTOM HUD */}
+  <div className="
+    absolute bottom-8 md:bottom-5 left-0 right-0
+    flex items-center justify-between
+    px-8 text-xs text-white/40
+  ">
+
+    {/* LEFT */}
+    <div className="flex items-center gap-6">
+      <span>V2.4.0 EXPERIMENTAL</span>
+      <span className="w-10 h-px bg-white/20" />
+      <span>PORTAL STATUS: OPTIMIZED</span>
+    </div>
+
+    {/* CENTER */}
+    {/* <div className="hidden md:flex flex-col items-center justify-center gap-2 text-white/30">
+      <span className="tracking-widest">ESCAPING THE VOID NOW</span>
+      <div className="w-px h-6 bg-white/20" />
+      <span className="tracking-widest text-[10px]">
+        SCROLL TO DIVE
+      </span>
+    </div> */}
+
+    {/* RIGHT */}
+    <div className="flex items-center gap-3">
+      <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition">
+        🔗
+      </button>
+      <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition">
+        🔊
+      </button>
+      <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition">
+        ⛶
+      </button>
+    </div>
+
+  </div>
+</div>
   );
 }
