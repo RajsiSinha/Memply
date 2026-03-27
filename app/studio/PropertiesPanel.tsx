@@ -7,7 +7,7 @@ type PropertiesPanelProps = {
   selectedText: TextLayer | null;
   onUpdateStyle: (id: number, changes: Partial<TextLayer>) => void;
   onDeleteText: (id: number) => void;
-  canvasRef: React.RefObject<HTMLDivElement>;
+  canvasRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export default function PropertiesPanel({
