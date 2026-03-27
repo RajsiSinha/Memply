@@ -19,6 +19,7 @@ type CanvasAreaProps = {
   onSelectText: (id: number) => void;
   onMoveText: (id: number, x: number, y: number) => void;
   zoom: number;
+  setZoom: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const templateImageMap: Record<string, string> = {
