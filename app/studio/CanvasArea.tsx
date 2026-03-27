@@ -11,7 +11,7 @@ const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 
 type CanvasAreaProps = {
-  canvasRef: React.RefObject<HTMLDivElement>;
+  canvasRef: React.RefObject<HTMLDivElement | null>;
   selectedTemplate: string | null;
   textLayers: TextLayer[];
   selectedTextId: number | null;
