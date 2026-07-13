@@ -3,11 +3,7 @@
 Memply is a modern, interactive web platform designed for creating, sharing, and exploring memes through engaging UI experiences and gamified features.
 
 ---
-## 🌐 Live Demo
 
-Deployed Application: **[View Memply Live](https://memply-1chj.vercel.app/)**
-
----
 ## ✨ Features
 
 ### 🎨 Meme Studio
